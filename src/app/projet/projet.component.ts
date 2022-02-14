@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ApiService} from "../services/api.service";
 import {ConfirmationService, MessageService} from "primeng-lts/api";
+import {Plant} from "../plante/plante.component";
+import {agri} from "../agriculteur/agriculteur.component";
 
 export interface project {
   id: number,
@@ -26,6 +28,8 @@ export interface project {
 export class ProjetComponent implements OnInit {
 
   projects: project[];
+  plantes: Plant[];
+  agriculteurs: agri[];
   formGroup: FormGroup;
   editFormGroup: FormGroup;
   openDialog: boolean;
@@ -38,6 +42,20 @@ export class ProjetComponent implements OnInit {
   ngOnInit(): void {
     this.api.getProjetFromServer().subscribe((projects: project[]) => {
         this.projects = projects;
+      },
+      (error) => {
+        console.log('error here =====> ', error)
+      });
+
+    this.api.getPlantFromServer().subscribe((plantes: Plant[]) => {
+        this.plantes = plantes;
+      },
+      (error) => {
+        console.log('error here =====> ', error)
+      });
+
+    this.api.getAgriFromServer().subscribe((agriculteurs: agri[]) => {
+        this.agriculteurs = agriculteurs;
       },
       (error) => {
         console.log('error here =====> ', error)

@@ -18,6 +18,7 @@ import {DialogModule} from "primeng-lts/dialog";
 import {ConfirmDialogModule} from "primeng-lts/confirmdialog";
 import {CardModule} from "primeng-lts/card";
 import {ReactiveFormsModule} from "@angular/forms";
+import {CalendarModule} from "primeng-lts/calendar";
 
 
 @NgModule({
@@ -40,6 +41,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     DialogModule,
     ConfirmDialogModule,
     CardModule,
+    CalendarModule,
+    DropdownModule,
     ReactiveFormsModule
   ]
 })
