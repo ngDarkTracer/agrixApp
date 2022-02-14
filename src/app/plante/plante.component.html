@@ -1,0 +1,80 @@
+<p-toast></p-toast>
+<p-card header="Liste des plantes" styleClass="m-5">
+  <div class="card">
+    <p-toolbar styleClass="p-mb-4">
+      <ng-template pTemplate="left">
+        <button pButton pRipple label="Nouvelle plante" icon="pi pi-plus" class="p-button-success mr-4" (click)="newPlant()"></button>
+      </ng-template>
+      <ng-template pTemplate="right">
+        <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Rechercher..." />
+      </ng-template>
+    </p-toolbar>
+
+    <p-table #dt [value]="plantes" [rows]="5" [paginator]="true" [globalFilterFields]="['nom', 'type_de_semence']" [rowHover]="true" dataKey="id"
+             currentPageReportTemplate="{last} sur {totalRecords} entrées" [showCurrentPageReport]="true">
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="name">Nom<p-sortIcon field="nom"></p-sortIcon></th>
+          <th pSortableColumn="price">Périodicité <p-sortIcon field="periodicite"></p-sortIcon></th>
+          <th pSortableColumn="category">Type de semence<p-sortIcon field="type_de_semence"></p-sortIcon></th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-plant>
+        <tr>
+          <td>{{plant.nom}}</td>
+          <td>{{plant.periodicite | number}}</td>
+          <td>{{plant.type_de_semence}}</td>
+          <td>
+            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-4" (click)="editPlant(plant)"></button>
+            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deletePlant(plant)"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <p-dialog [(visible)]="openDialog" [style]="{width: '450px'}" header="Nouvelle plante" [modal]="true" styleClass="p-fluid">
+    <form [formGroup]="formGroup" (ngSubmit)="save()">
+      <div class="p-field mb-2">
+        <label for="name">Nom</label>
+        <input type="text" pInputText id="name" formControlName="nom" required />
+      </div>
+      <div class="p-field mb-2">
+        <label for="period">Périodicité</label>
+        <input type="number" id="period" pInputText formControlName="periodicite" required />
+      </div>
+      <div class="p-field mb-2">
+        <label for="type">Type de semence</label>
+        <input id="type" pInputText formControlName="type_de_semence" required />
+      </div>
+      <div style="display: flex; flex-direction: row; justify-content: space-between">
+        <button pButton type="submit" pRipple label="Enregistrer" icon="pi pi-check" class="p-button-text" [disabled]="formGroup.invalid"></button>
+        <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text"></button>
+      </div>
+    </form>
+  </p-dialog>
+
+  <p-dialog [(visible)]="edit" [style]="{width: '450px'}" header="Modifier cette plante" [modal]="true" styleClass="p-fluid">
+    <form [formGroup]="editFormGroup" (ngSubmit)="update()">
+      <div class="p-field mb-2">
+        <label for="nameE">Nom</label>
+        <input type="text" pInputText id="nameE" formControlName="nom" required />
+      </div>
+      <div class="p-field mb-2">
+        <label for="periodE">Périodicité</label>
+        <input type="number" id="periodE" pInputText formControlName="periodicite" required />
+      </div>
+      <div class="p-field mb-2">
+        <label for="typeE">Type de semence</label>
+        <input id="typeE" pInputText formControlName="type_de_semence" required />
+      </div>
+      <div style="display: flex; flex-direction: row; justify-content: space-between">
+        <button pButton type="submit" pRipple label="Modifier" icon="pi pi-check" class="p-button-text" [disabled]="editFormGroup.invalid"></button>
+        <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text"></button>
+      </div>
+    </form>
+  </p-dialog>
+</p-card>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

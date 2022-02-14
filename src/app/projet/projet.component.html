@@ -1,0 +1,171 @@
+<p-toast></p-toast>
+<p-card header="Liste des Agriculteurs" styleClass="m-5">
+  <div class="card">
+    <p-toolbar styleClass="p-mb-4">
+      <ng-template pTemplate="left">
+        <button pButton pRipple label="Nouvel agriculteur" icon="pi pi-plus" class="p-button-success mr-4" (click)="newProjet()"></button>
+      </ng-template>
+      <ng-template pTemplate="right">
+        <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Rechercher..." />
+      </ng-template>
+    </p-toolbar>
+
+    <p-table #dt [value]="projects" [rows]="5" [paginator]="true" [globalFilterFields]="['nom']" [rowHover]="true" dataKey="id"
+             currentPageReportTemplate="{last} sur {totalRecords} entrées" [showCurrentPageReport]="true">
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="name">Nom<p-sortIcon field="nom"></p-sortIcon></th>
+          <th pSortableColumn="price">Etat <p-sortIcon field="etat"></p-sortIcon></th>
+          <th pSortableColumn="category">Pays<p-sortIcon field="pays"></p-sortIcon></th>
+          <th pSortableColumn="name">Region<p-sortIcon field="region"></p-sortIcon></th>
+          <th pSortableColumn="price">Superficie<p-sortIcon field="superficie"></p-sortIcon></th>
+          <th pSortableColumn="category">Localisation<p-sortIcon field="localisation"></p-sortIcon></th>
+          <th pSortableColumn="name">Date de prise de contact<p-sortIcon field="datecontact"></p-sortIcon></th>
+          <th pSortableColumn="name">Date de semis<p-sortIcon field="datesemis"></p-sortIcon></th>
+          <th pSortableColumn="price">Date anticipée de recolte<p-sortIcon field="dateanticiperecolte"></p-sortIcon></th>
+          <th pSortableColumn="category">Agriculteur<p-sortIcon field="agriculteur"></p-sortIcon></th>
+          <th pSortableColumn="name">Plante<p-sortIcon field="plante"></p-sortIcon></th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-agri>
+        <tr>
+          <td>{{agri.nom}}</td>
+          <td>{{agri.etat}}</td>
+          <td>{{agri.pays}}</td>
+          <td>{{agri.region}}</td>
+          <td>{{agri.superficie}}</td>
+          <td>{{agri.localisation}}</td>
+          <td>{{agri.datecontact}}</td>
+          <td>{{agri.dateanticiperecolte}}</td>
+          <td>{{agri.agriculteur}}</td>
+          <td>{{agri.plante}}</td>
+          <td>
+            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-4" (click)="editProject(agri)"></button>
+            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProject(agri)"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <p-dialog [(visible)]="openDialog" [style]="{width: '450px'}" header="Nouvel agriculteur" [modal]="true" styleClass="p-fluid">
+    <form [formGroup]="formGroup" (ngSubmit)="save()">
+      <div class="p-field mb-2">
+        <label for="name">Nom</label>
+        <input type="text" pInputText id="name" formControlName="nom" />
+      </div>
+      <div class="p-field mb-2">
+        <label>Sexe</label>
+        <div class="field-radiobutton">
+          <p-radioButton id="m" name="sexe" value="M" formControlName="sexe"></p-radioButton>
+          <label for="m">M</label>
+        </div>
+        <div class="field-radiobutton">
+          <p-radioButton id="f" name="sexe" value="F" formControlName="sexe"></p-radioButton>
+          <label for="f">F</label>
+        </div>
+      </div>
+      <div class="p-field mb-2">
+        <label for="age">âge</label>
+        <input type="number" id="age" pInputText formControlName="age" />
+      </div>
+      <div class="p-field mb-2">
+        <label for="tel">Telephone</label>
+        <input type="text" pInputText id="tel" formControlName="telephone" />
+      </div>
+      <div class="p-field mb-2">
+        <label for="wha">Whatsapp</label>
+        <input type="text" id="wha" pInputText formControlName="whatsapp" />
+      </div>
+      <div class="p-field mb-2">
+        <label for="mail">Email</label>
+        <input type="email" id="mail" pInputText formControlName="email" />
+      </div>
+      <div class="p-field mb-2">
+        <label>Possède agrix</label><br>
+        <div class="field-radiobutton">
+          <p-radioButton id="yes" name="possede_agrix" value="true" formControlName="possede_agrix"></p-radioButton>
+          <label for="yes">Oui</label>
+        </div>
+        <div class="field-radiobutton">
+          <p-radioButton id="no" name="possede_agrix" value="false" formControlName="possede_agrix"></p-radioButton>
+          <label for="no">Non</label>
+        </div>
+      </div>
+      <div class="p-field mb-2">
+        <label for="bio">Biographie</label>
+        <textarea id="bio" [rows]="5" [cols]="30" pInputTextarea formControlName="biographie"></textarea>
+      </div>
+      <div class="p-field mb-2">
+        <label for="source">Source</label>
+        <input id="source" pInputText formControlName="source" />
+      </div>
+      <div style="display: flex; flex-direction: row; justify-content: space-between">
+        <button pButton type="submit" pRipple label="Enregistrer" icon="pi pi-check" class="p-button-text" [disabled]="formGroup.invalid"></button>
+        <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text"></button>
+      </div>
+    </form>
+  </p-dialog>
+
+  <p-dialog [(visible)]="edit" [style]="{width: '450px'}" header="Modifier cet agriculteur" [modal]="true" styleClass="p-fluid">
+    <form [formGroup]="editFormGroup" (ngSubmit)="update()">
+      <div class="p-field mb-2">
+        <label for="name">Nom</label>
+        <input type="text" pInputText id="name" formControlName="nom" />
+      </div>
+      <div class="p-field mb-2">
+        <label>Sexe</label>
+        <div class="field-radiobutton">
+          <p-radioButton id="m" name="sexe" value="M" formControlName="sexe"></p-radioButton>
+          <label for="m">M</label>
+        </div>
+        <div class="field-radiobutton">
+          <p-radioButton id="f" name="sexe" value="F" formControlName="sexe"></p-radioButton>
+          <label for="f">F</label>
+        </div>
+      </div>
+      <div class="p-field mb-2">
+        <label for="age">âge</label>
+        <input type="number" id="age" pInputText formControlName="age" />
+      </div>
+      <div class="p-field mb-2">
+        <label for="tel">Telephone</label>
+        <input type="text" pInputText id="tel" formControlName="telephone" />
+      </div>
+      <div class="p-field mb-2">
+        <label for="wha">Whatsapp</label>
+        <input type="text" id="wha" pInputText formControlName="whatsapp" />
+      </div>
+      <div class="p-field mb-2">
+        <label for="mail">Email</label>
+        <input type="email" id="mail" pInputText formControlName="email" />
+      </div>
+      <div class="p-field mb-2">
+        <label>Possède agrix</label><br>
+        <div class="field-radiobutton">
+          <p-radioButton id="yes" name="possede_agrix" value="true" formControlName="possede_agrix"></p-radioButton>
+          <label for="yes">Oui</label>
+        </div>
+        <div class="field-radiobutton">
+          <p-radioButton id="no" name="possede_agrix" value="false" formControlName="possede_agrix"></p-radioButton>
+          <label for="no">Non</label>
+        </div>
+      </div>
+      <div class="p-field mb-2">
+        <label for="bio">Biographie</label>
+        <textarea id="bio" [rows]="5" [cols]="30" pInputTextarea formControlName="biographie"></textarea>
+      </div>
+      <div class="p-field mb-2">
+        <label for="source">Source</label>
+        <input id="source" pInputText formControlName="source" />
+      </div>
+      <div style="display: flex; flex-direction: row; justify-content: space-between">
+        <button pButton type="submit" pRipple label="Enregistrer" icon="pi pi-check" class="p-button-text" [disabled]="editFormGroup.invalid"></button>
+        <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text"></button>
+      </div>
+    </form>
+  </p-dialog>
+</p-card>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
