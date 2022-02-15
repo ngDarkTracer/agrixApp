@@ -14,12 +14,12 @@
              currentPageReportTemplate="{last} sur {totalRecords} entrées" [showCurrentPageReport]="true">
       <ng-template pTemplate="header">
         <tr>
-          <th pSortableColumn="name">Nom<p-sortIcon field="nom"></p-sortIcon></th>
-          <th pSortableColumn="price">sexe <p-sortIcon field="sexe"></p-sortIcon></th>
-          <th pSortableColumn="category">age<p-sortIcon field="age"></p-sortIcon></th>
-          <th pSortableColumn="name">telephone<p-sortIcon field="telephone"></p-sortIcon></th>
-          <th pSortableColumn="price">whatsapp <p-sortIcon field="whatsapp"></p-sortIcon></th>
-          <th pSortableColumn="category">email<p-sortIcon field="email"></p-sortIcon></th>
+          <th pSortableColumn="name">Nom</th>
+          <th pSortableColumn="price">sexe</th>
+          <th pSortableColumn="category">age</th>
+          <th pSortableColumn="name">telephone</th>
+          <th pSortableColumn="price">whatsapp</th>
+          <th pSortableColumn="category">email</th>
           <th></th>
         </tr>
       </ng-template>
@@ -94,7 +94,6 @@
       </div>
       <div style="display: flex; flex-direction: row; justify-content: space-between">
         <button pButton type="submit" pRipple label="Enregistrer" icon="pi pi-check" class="p-button-text" [disabled]="formGroup.invalid"></button>
-        <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text"></button>
       </div>
     </form>
   </p-dialog>
@@ -153,7 +152,6 @@
       </div>
       <div style="display: flex; flex-direction: row; justify-content: space-between">
         <button pButton type="submit" pRipple label="Enregistrer" icon="pi pi-check" class="p-button-text" [disabled]="editFormGroup.invalid"></button>
-        <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text"></button>
       </div>
     </form>
   </p-dialog>

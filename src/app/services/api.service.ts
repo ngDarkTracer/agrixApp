@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Plant} from "../plante/plante.component";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  serverAdress = 'http://localhost:3000';
+  serverAdress = 'https://agrixllorel.herokuapp.com';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -31,7 +30,8 @@ export class ApiService {
   }
 
   saveProjetToServer(data): Observable<any[]> {
-    return this.httpClient.post<any[]>(this.serverAdress + '/saveProjet', data);
+    console.log(data)
+    return this.httpClient.post<any[]>(this.serverAdress + '/saveProject', data);
   }
 
   deletePlantFromServer(id: number) {

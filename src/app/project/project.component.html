@@ -14,17 +14,17 @@
              currentPageReportTemplate="{last} sur {totalRecords} entrées" [showCurrentPageReport]="true">
       <ng-template pTemplate="header">
         <tr>
-          <th pSortableColumn="name">Nom<p-sortIcon field="nom"></p-sortIcon></th>
-          <th pSortableColumn="price">Etat <p-sortIcon field="etat"></p-sortIcon></th>
-          <th pSortableColumn="category">Pays<p-sortIcon field="pays"></p-sortIcon></th>
-          <th pSortableColumn="name">Region<p-sortIcon field="region"></p-sortIcon></th>
-          <th pSortableColumn="price">Superficie<p-sortIcon field="superficie"></p-sortIcon></th>
-          <th pSortableColumn="category">Localisation<p-sortIcon field="localisation"></p-sortIcon></th>
-          <th pSortableColumn="name">Date de prise de contact<p-sortIcon field="datecontact"></p-sortIcon></th>
-          <th pSortableColumn="name">Date de semis<p-sortIcon field="datesemis"></p-sortIcon></th>
-          <th pSortableColumn="price">Date anticipée de recolte<p-sortIcon field="dateanticiperecolte"></p-sortIcon></th>
-          <th pSortableColumn="category">Agriculteur<p-sortIcon field="agriculteur"></p-sortIcon></th>
-          <th pSortableColumn="name">Plante<p-sortIcon field="plante"></p-sortIcon></th>
+          <th pSortableColumn="name">Nom</th>
+          <th pSortableColumn="price">Etat</th>
+          <th pSortableColumn="category">Pays</th>
+          <th pSortableColumn="name">Region</th>
+          <th pSortableColumn="price">Superficie</th>
+          <th pSortableColumn="category">Localisation</th>
+          <th pSortableColumn="name">Date de prise de contact</th>
+          <th pSortableColumn="name">Date de semis</th>
+          <th pSortableColumn="price">Date anticipée de recolte</th>
+          <th pSortableColumn="category">Agriculteur</th>
+          <th pSortableColumn="name">Plante</th>
           <th></th>
         </tr>
       </ng-template>
@@ -36,10 +36,11 @@
           <td>{{agri.region}}</td>
           <td>{{agri.superficie}}</td>
           <td>{{agri.localisation}}</td>
-          <td>{{agri.datecontact}}</td>
-          <td>{{agri.dateanticiperecolte}}</td>
-          <td>{{agri.agriculteur}}</td>
-          <td>{{agri.plante}}</td>
+          <td>{{agri.datecontact | date : 'shortDate'}}</td>
+          <td>{{agri.datesemi | date : 'shortDate'}}</td>
+          <td>{{agri.dateanticipederecolte | date : 'shortDate'}}</td>
+          <td>{{getAgriculteur(agri.agriculteur)}}</td>
+          <td>{{getPlante(agri.plante)}}</td>
           <td>
             <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-4" (click)="editProject(agri)"></button>
             <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProject(agri)"></button>
@@ -73,14 +74,14 @@
       </div>
       <div class="p-field mb-2">
         <label for="localisation">Localisation</label>
-        <input type="text" id="localisation" pInputText formControlName="superficie" />
+        <input type="text" id="localisation" pInputText formControlName="localisation" />
       </div>
       <div class="p-field mb-2">
         <label for="datecontact">Date de prise de contact</label>
         <p-calendar id="datecontact" formControlName="datecontact"></p-calendar>
       </div>
       <div  class="p-field mb-2">
-        <label for="datesemis">Date de semis recolte</label>
+        <label for="datesemis">Date de semis</label>
         <p-calendar id="datesemis" formControlName="datesemis"></p-calendar>
       </div>
       <div  class="p-field mb-2">
@@ -89,15 +90,14 @@
       </div>
       <div class="p-field mb-2">
         <label for="agri">Agriculteur</label>
-        <p-dropdown id="agri" [options]="agriculteurs" optionLabel="nom" formControlName="agriculteur"></p-dropdown>
+        <p-dropdown id="agri" [options]="agriculteurs" optionLabel="nom" optionValue="id" formControlName="agriculteur"></p-dropdown>
       </div>
       <div class="p-field mb-2">
         <label for="plante">Plante</label>
-        <p-dropdown id="plante" [options]="plantes" optionLabel="nom" formControlName="plante"></p-dropdown>
+        <p-dropdown id="plante" [options]="plantes" optionLabel="nom" optionValue="id" formControlName="plante"></p-dropdown>
       </div>
       <div style="display: flex; flex-direction: row; justify-content: space-between">
         <button pButton type="submit" pRipple label="Enregistrer" icon="pi pi-check" class="p-button-text" [disabled]="formGroup.invalid"></button>
-        <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text"></button>
       </div>
     </form>
   </p-dialog>
@@ -126,31 +126,30 @@
       </div>
       <div class="p-field mb-2">
         <label for="localisation">Localisation</label>
-        <input type="text" id="localisation" pInputText formControlName="superficie" />
+        <input type="text" id="localisation" pInputText formControlName="localisation" />
       </div>
       <div class="p-field mb-2">
-        <label for="datecontact">Date de prise de contact</label>
-        <p-calendar id="datecontact" formControlName="datecontact"></p-calendar>
+        <label for="datec">Date de prise de contact</label>
+        <p-calendar id="datec" formControlName="datecontact"></p-calendar>
       </div>
       <div  class="p-field mb-2">
-        <label for="datesemis">Date de semis recolte</label>
-        <p-calendar id="datesemis" formControlName="datesemis"></p-calendar>
+        <label for="dates">Date de semis</label>
+        <p-calendar id="dates" formControlName="datesemis"></p-calendar>
       </div>
       <div  class="p-field mb-2">
-        <label for="dateanticiperecolte">Date anticipée de recolte</label>
-        <p-calendar id="dateanticiperecolte" formControlName="dateanticiperecolte"></p-calendar>
+        <label for="dater">Date anticipée de recolte</label>
+        <p-calendar id="dater" formControlName="dateanticiperecolte"></p-calendar>
       </div>
       <div class="p-field mb-2">
         <label for="agri">Agriculteur</label>
-        <p-dropdown id="agri" [options]="agriculteurs" optionLabel="nom" formControlName="agriculteur"></p-dropdown>
+        <p-dropdown id="agri" [options]="agriculteurs" optionLabel="nom" optionValue="id" formControlName="agriculteur"></p-dropdown>
       </div>
       <div class="p-field mb-2">
         <label for="plante">Plante</label>
-        <p-dropdown id="plante" [options]="plantes" optionLabel="nom" formControlName="plante"></p-dropdown>
+        <p-dropdown id="plante" [options]="plantes" optionLabel="nom" optionValue="id" formControlName="plante"></p-dropdown>
       </div>
-      <div style="display: flex; flex-direction: row; justify-content: space-between">
-        <button pButton type="submit" pRipple label="Enregistrer" icon="pi pi-check" class="p-button-text" [disabled]="editFormGroup.invalid"></button>
-        <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text"></button>
+      <div>
+        <button pButton type="submit" style="" pRipple label="Enregistrer" icon="pi pi-check" class="p-button-text" [disabled]="editFormGroup.invalid"></button>
       </div>
     </form>
   </p-dialog>

@@ -14,9 +14,9 @@
              currentPageReportTemplate="{last} sur {totalRecords} entrées" [showCurrentPageReport]="true">
       <ng-template pTemplate="header">
         <tr>
-          <th pSortableColumn="name">Nom<p-sortIcon field="nom"></p-sortIcon></th>
-          <th pSortableColumn="price">Périodicité <p-sortIcon field="periodicite"></p-sortIcon></th>
-          <th pSortableColumn="category">Type de semence<p-sortIcon field="type_de_semence"></p-sortIcon></th>
+          <th pSortableColumn="name">Nom</th>
+          <th pSortableColumn="price">Périodicité</th>
+          <th pSortableColumn="category">Type de semence</th>
           <th></th>
         </tr>
       </ng-template>
@@ -50,7 +50,6 @@
       </div>
       <div style="display: flex; flex-direction: row; justify-content: space-between">
         <button pButton type="submit" pRipple label="Enregistrer" icon="pi pi-check" class="p-button-text" [disabled]="formGroup.invalid"></button>
-        <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text"></button>
       </div>
     </form>
   </p-dialog>
@@ -71,7 +70,6 @@
       </div>
       <div style="display: flex; flex-direction: row; justify-content: space-between">
         <button pButton type="submit" pRipple label="Modifier" icon="pi pi-check" class="p-button-text" [disabled]="editFormGroup.invalid"></button>
-        <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text"></button>
       </div>
     </form>
   </p-dialog>
