@@ -1,0 +1,26 @@
+<div class="centered">
+  <p-card header="Inscription">
+    <form [formGroup]="signInForm" (ngSubmit)="submit()">
+    <span class="p-float-label" style="margin: 35px">
+      <input id="float-input-name" type="text" pInputText formControlName="name" style="width: 90%">
+      <label for="float-input-name">Nom</label>
+    </span>
+      <span class="p-float-label" style="margin: 35px">
+      <input id="float-input-email" type="text" pInputText formControlName="email" style="width: 90%">
+      <label for="float-input-email">Email</label>
+    </span>
+      <span class="p-float-label" style="margin: 35px">
+      <p-password [feedback]="false" id="float-input-password" [toggleMask]="true" formControlName="password" #p1></p-password>
+      <label for="float-input-password">Mot de passe</label>
+    </span>
+      <span class="p-float-label" style="margin: 35px">
+      <p-password [feedback]="false" id="float-input-password2" [toggleMask]="true" #p2></p-password>
+      <label for="float-input-password2">Confirmation</label>
+    </span>
+      <span class="m-5 col-5">
+        <button pButton pRipple type="submit" label="Inscription" class="p-button-raised p-button-success align-self-center" [disabled]="(p1.value !== p2.value) || signInForm.invalid"></button>
+      </span>
+      <p class="mt-5">Déjà inscrit ? <a routerLink="/signIn" style="text-decoration: none">connectez</a> vous ici</p>
+    </form>
+  </p-card>
+</div>

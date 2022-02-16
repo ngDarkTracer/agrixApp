@@ -10,7 +10,7 @@
       </ng-template>
     </p-toolbar>
 
-    <p-table #dt [value]="agriculteurs" [rows]="5" [paginator]="true" [globalFilterFields]="['nom']" [rowHover]="true" dataKey="id"
+    <p-table #dt [value]="agriculteurs" [responsive]="true" [rows]="5" [paginator]="true" [globalFilterFields]="['nom']" [rowHover]="true" dataKey="id"
              currentPageReportTemplate="{last} sur {totalRecords} entrées" [showCurrentPageReport]="true">
       <ng-template pTemplate="header">
         <tr>
@@ -40,7 +40,7 @@
     </p-table>
   </div>
 
-  <p-dialog [(visible)]="openDialog" [style]="{width: '450px'}" header="Nouvel agriculteur" [modal]="true" styleClass="p-fluid">
+  <p-dialog [(visible)]="openDialog" [responsive]="true" [style]="{width: '450px'}" header="Nouvel agriculteur" [modal]="true" styleClass="p-fluid">
     <form [formGroup]="formGroup" (ngSubmit)="save()">
       <div class="p-field mb-2">
         <label for="name">Nom</label>
@@ -98,7 +98,7 @@
     </form>
   </p-dialog>
 
-  <p-dialog [(visible)]="edit" [style]="{width: '450px'}" header="Modifier cet agriculteur" [modal]="true" styleClass="p-fluid">
+  <p-dialog [(visible)]="edit" [responsive]="true" [style]="{width: '450px'}" header="Modifier cet agriculteur" [modal]="true" styleClass="p-fluid">
     <form [formGroup]="editFormGroup" (ngSubmit)="update()">
       <div class="p-field mb-2">
         <label for="name">Nom</label>

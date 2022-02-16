@@ -10,7 +10,7 @@
       </ng-template>
     </p-toolbar>
 
-    <p-table #dt [value]="plantes" [rows]="5" [paginator]="true" [globalFilterFields]="['nom', 'type_de_semence']" [rowHover]="true" dataKey="id"
+    <p-table #dt [value]="plantes" [responsive]="true" [rows]="5" [paginator]="true" [globalFilterFields]="['nom', 'type_de_semence']" [rowHover]="true" dataKey="id"
              currentPageReportTemplate="{last} sur {totalRecords} entrées" [showCurrentPageReport]="true">
       <ng-template pTemplate="header">
         <tr>
@@ -34,7 +34,7 @@
     </p-table>
   </div>
 
-  <p-dialog [(visible)]="openDialog" [style]="{width: '450px'}" header="Nouvelle plante" [modal]="true" styleClass="p-fluid">
+  <p-dialog [(visible)]="openDialog" [responsive]="true" [style]="{width: '450px'}" header="Nouvelle plante" [modal]="true" styleClass="p-fluid">
     <form [formGroup]="formGroup" (ngSubmit)="save()">
       <div class="p-field mb-2">
         <label for="name">Nom</label>
@@ -54,7 +54,7 @@
     </form>
   </p-dialog>
 
-  <p-dialog [(visible)]="edit" [style]="{width: '450px'}" header="Modifier cette plante" [modal]="true" styleClass="p-fluid">
+  <p-dialog [(visible)]="edit" [responsive]="true" [style]="{width: '450px'}" header="Modifier cette plante" [modal]="true" styleClass="p-fluid">
     <form [formGroup]="editFormGroup" (ngSubmit)="update()">
       <div class="p-field mb-2">
         <label for="nameE">Nom</label>

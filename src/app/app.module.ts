@@ -8,10 +8,23 @@ import {ConfirmationService, MessageService, SharedModule} from "primeng-lts/api
 import {HttpClientModule} from "@angular/common/http";
 import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { SignupComponent } from './auth/signup/signup.component';
+import { SigninComponent } from './auth/signin/signin.component';
+import { MainComponent } from './main/main.component';
+import {HashLocationStrategy, LocationStrategy} from "@angular/common";
+import {CardModule} from "primeng-lts/card";
+import {InputTextModule} from "primeng-lts/inputtext";
+import {PasswordModule} from "primeng-lts/password";
+import {ButtonModule} from "primeng-lts/button";
+import {ApiService} from "./services/api.service";
+import {AuthGuard} from "./auth/auth.guard";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SignupComponent,
+    SigninComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,
@@ -20,12 +33,19 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     SharedModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    CardModule,
+    InputTextModule,
+    PasswordModule,
+    ButtonModule
   ],
   providers: [
     FormBuilder,
     MessageService,
-    ConfirmationService
+    ApiService,
+    AuthGuard,
+    ConfirmationService,
+    { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,18 @@
+<div class="centered">
+  <p-card header="Connexion">
+    <form [formGroup]="loginForm" (ngSubmit)="submit()">
+      <span class="p-float-label" style="margin: 35px">
+      <input id="float-input-email" type="text" pInputText formControlName="email" style="width: 90%">
+      <label for="float-input-email">Email</label>
+    </span>
+      <span class="p-float-label" style="margin: 35px">
+      <p-password [feedback]="false" id="float-input-password" [toggleMask]="true" formControlName="password"></p-password>
+      <label for="float-input-password">Mot de passe</label>
+    </span>
+      <span class="m-5 col-5">
+        <button pButton pRipple type="submit" label="Connexion" class="p-button-raised p-button-success align-self-center" [disabled]="loginForm.invalid"></button>
+      </span>
+      <p class="mt-5">Vous n'êtes pas encore inscrit ? <a routerLink="/signUp" style="text-decoration: none">inscrivez</a> vous ici</p>
+    </form>
+  </p-card>
+</div>
